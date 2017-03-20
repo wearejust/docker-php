@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM andthensome/docker-php-5.3-fpm
 
 MAINTAINER JUST BV
 
