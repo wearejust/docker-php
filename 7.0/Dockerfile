@@ -7,6 +7,10 @@ RUN apt-get clean && apt-get update -qq \
 	&& apt-get install -y -qq unzip git zlib1g-dev locales libpng-dev zlib1g-dev libicu-dev g++ \
 	&& rm -rf /var/lib/apt/lists/*
 
+# Set timezone
+RUN rm /etc/localtime \
+	&& ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+
 # Install locales
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 	&& echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen \
