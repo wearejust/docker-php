@@ -2,15 +2,34 @@ FROM php:7.0-fpm
 
 MAINTAINER JUST BV
 
+# Install dependencies (needed for composer)
+RUN apt-get clean && apt-get update -qq \
+	&& apt-get install -y -qq unzip git zlib1g-dev locales libpng-dev zlib1g-dev libicu-dev g++ \
+	&& rm -rf /var/lib/apt/lists/*
+
 # Set timezone
 RUN rm /etc/localtime \
 	&& ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 
+# Install locales
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+	&& echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen \
+	&& locale-gen
+
 # Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql gd intl
+RUN docker-php-ext-configure intl
 
 RUN echo "date.timezone = Europe/Amsterdam" > /usr/local/etc/php/conf.d/timezone.ini \
 	&& echo "short_open_tag = off" > /usr/local/etc/php/conf.d/short_open.ini
+
+# Install composer
+RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php \
+	&& php composer-setup.php --install-dir=/usr/local/bin/ --filename=composer \
+	&& php -r "unlink('composer-setup.php');"
+
+# Install global performance booster
+RUN composer global require "hirak/prestissimo:^0.3"
 
 EXPOSE 9000
 
