@@ -10,7 +10,10 @@ RUN apt-get update -qq \
         libmcrypt-dev \
         libpng12-dev \
         locales \
-        libicu-dev
+        libicu-dev \
+        unzip \
+        git \
+        g++
 
 # Set timezone
 RUN rm /etc/localtime \
