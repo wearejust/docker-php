@@ -10,6 +10,7 @@ RUN apt-get update -qq \
         libmcrypt-dev \
         libpng12-dev \
         locales \
+        git \
         libicu-dev
 
 # Set timezone
