@@ -5,8 +5,9 @@ MAINTAINER JUST BV
 # Install dependencies (needed for composer)
 RUN apt-get update -qq \
 	&& apt-get install -y -qq \
-		libfreetype6-dev \
+	libfreetype6-dev \
         libjpeg62-turbo-dev \
+	libmagickwand-dev --no-install-recommends \
         libmcrypt-dev \
         libpng12-dev \
         locales \
@@ -14,6 +15,10 @@ RUN apt-get update -qq \
         unzip \
         git \
         g++
+	
+# Install imageick
+RUN pecl install imagick \
+    && docker-php-ext-enable imagick
 
 # Set timezone
 RUN rm /etc/localtime \
