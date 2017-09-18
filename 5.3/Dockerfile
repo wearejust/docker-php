@@ -23,7 +23,10 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 	&& locale-gen
 
 RUN echo "date.timezone = Europe/Amsterdam" > /usr/local/etc/php/conf.d/timezone.ini \
-	&& echo "short_open_tag = off" > /usr/local/etc/php/conf.d/short_open.ini
+    && echo "short_open_tag = off" > /usr/local/etc/php/conf.d/short_open.ini \
+    && echo "upload_max_filesize = 100M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "memory_limit = 128M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 125M" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php \
