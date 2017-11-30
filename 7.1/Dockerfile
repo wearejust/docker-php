@@ -39,9 +39,9 @@ RUN docker-php-ext-install -j$(nproc) mcrypt pdo pdo_mysql intl zip bz2
 
 RUN echo "date.timezone = Europe/Amsterdam" > /usr/local/etc/php/conf.d/timezone.ini \
     && echo "short_open_tag = off" > /usr/local/etc/php/conf.d/short_open.ini \
-    && echo "upload_max_filesize = 100M" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "memory_limit = 128M" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "post_max_size = 125M" >> /usr/local/etc/php/conf.d/uploads.ini
+    && echo "upload_max_filesize = 256M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 256M" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php \
