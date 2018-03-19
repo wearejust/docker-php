@@ -14,7 +14,8 @@ RUN apt-get update -qq \
         libicu-dev \
         unzip \
         git \
-        g++
+        ssh \
+	g++
 
 # Install imageick
 RUN pecl install imagick \
