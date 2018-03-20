@@ -14,6 +14,7 @@ RUN apt-get update -qq \
         libicu-dev \
         unzip \
         git \
+        rsync \
         ssh \
 	g++
 
